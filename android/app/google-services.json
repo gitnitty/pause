@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1095757226336",
+    "project_id": "pause-da10e",
+    "storage_bucket": "pause-da10e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095757226336:android:5d2b95b8e101d9909b3e05",
+        "android_client_info": {
+          "package_name": "com.clap.pause"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSWCdONDwhWMBzSoM62gbFox_ThB8TnP0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
