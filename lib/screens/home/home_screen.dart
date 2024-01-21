@@ -7,6 +7,7 @@ import 'package:pause/screens/home/main_goal_weekly_page.dart';
 
 import '../goalexecution/sub_goal.dart';
 import '../goalexecution/task.dart';
+import 'main_goal_monthly_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -110,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
         taskList: _taskList,
       );
     }
-    return Container();
+    return MainGoalMonthlyPage();
   }
 
   @override
