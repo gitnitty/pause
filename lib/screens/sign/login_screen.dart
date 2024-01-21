@@ -8,11 +8,12 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:pause/constants/constants_color.dart';
 import 'package:pause/screens/main/main_screen.dart';
+import 'package:pause/screens/sign/find_password_screen.dart';
+import 'package:pause/screens/sign/signup_screen.dart';
 import 'package:pause/screens/sign/social_login_result_screen.dart';
+import 'package:pause/widgets/custom_action_button.dart';
+import 'package:pause/widgets/custom_text_field.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-
-import '../../widgets/custom_action_button.dart';
-import '../../widgets/custom_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -26,6 +27,15 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   bool _showPassword = false;
+
+  void _showErrorMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.red,
+      ),
+    );
+  }
 
   void kakaoSignIn() async {
     try {
@@ -79,8 +89,6 @@ class _LoginScreenState extends State<LoginScreen> {
         throw Exception('로그인을 실패했습니다');
       }
       List<String> jwt = credential.identityToken?.split('.') ?? [];
-      //jwt는 header, payload, verify 로 나뉘어져있고, payload 에 데이터가 저장되어있음
-      //jwt을 복호화해서 필요한 정보를 가져오는 과정
       String payload = jwt[1];
       payload = base64.normalize(payload);
 
@@ -118,6 +126,95 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  void loginWithEmailAndPassword() {
+    try {
+      String email = _emailController.text;
+      String password = _passwordController.text;
+
+      // Validate email and password
+      if (email.isEmpty || !email.contains('@')) {
+        _showErrorMessage('올바른 이메일 주소를 입력하세요.');
+        return;
+      }
+
+      if (password.length < 9 ||
+          !password.contains(RegExp(r'[a-zA-Z]')) ||
+          !password.contains(RegExp(r'[0-9]'))) {
+        _showErrorMessage('비밀번호는 9자 이상이어야 하며,\n 영문과 숫자를 모두 포함해야 합니다.');
+        return;
+      }
+
+      // Simulate authentication without using FirebaseAuth
+      if (_fakeUserCredentials.containsKey(email) &&
+          _fakeUserCredentials[email] == password) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const MainScreen()),
+        );
+      } else {
+        _showErrorMessage('로그인에 실패했습니다.');
+      }
+    } catch (e) {
+      log('loginWithEmailAndPassword Error: $e');
+      _showErrorMessage('로그인에 실패했습니다.');
+    }
+  }
+
+  // Simulated user credentials (replace this with your actual user data)
+  final Map<String, String> _fakeUserCredentials = {
+    'user1@example.com': 'password1',
+    'user2@example.com': 'password2',
+  };
+
+  // 파이어 베이스 코드
+  //   Future<void> loginWithEmailAndPassword() async {
+  //   try {
+  //     String email = _emailController.text;
+  //     String password = _passwordController.text;
+
+  //     // Validate email and password
+  //     if (email.isEmpty || !email.contains('@')) {
+  //       _showErrorMessage('올바른 이메일 주소를 입력하세요.');
+  //       return;
+  //     }
+
+  //     if (password.length < 9 ||
+  //         !password.contains(RegExp(r'[a-zA-Z]')) ||
+  //         !password.contains(RegExp(r'[0-9]'))) {
+  //       _showErrorMessage('비밀번호는 9자 이상이어야 하며, 영문과 숫자를 모두 포함해야 합니다.');
+  //       return;
+  //     }
+
+  //     // Check if email exists in Firestore
+  //     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+  //         .collection('users')
+  //         .where('email', isEqualTo: email)
+  //         .get();
+
+  //     if (querySnapshot.docs.isEmpty) {
+  //       _showErrorMessage('등록되지 않은 이메일 주소입니다.');
+  //       return;
+  //     }
+
+  //     // Email exists, check if password matches
+  //     String storedPassword = querySnapshot.docs.first['password'];
+
+  //     if (storedPassword == password) {
+  //       // Passwords match, proceed with login
+  //       Navigator.pushReplacement(
+  //         context,
+  //         MaterialPageRoute(builder: (context) => const MainScreen()),
+  //       );
+  //     } else {
+  //       // Passwords don't match
+  //       _showErrorMessage('비밀번호가 일치하지 않습니다.');
+  //     }
+  //   } catch (e) {
+  //     log('loginWithEmailAndPassword Error: $e');
+  //     _showErrorMessage('로그인에 실패했습니다.');
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,13 +241,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(width: 4),
-              Text(
-                '회원가입하기',
-                style: TextStyle(
-                  fontSize: 12,
-                  height: 14 / 12,
-                  color: kPrimaryColor,
-                  fontWeight: FontWeight.bold,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignupScreen()),
+                  );
+                },
+                child: Text(
+                  '회원가입하기',
+                  style: TextStyle(
+                    fontSize: 12,
+                    height: 14 / 12,
+                    color: kPrimaryColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
@@ -161,6 +266,8 @@ class _LoginScreenState extends State<LoginScreen> {
             hintText: '이메일 주소',
             textChanged: (text) => setState(() {}),
             inputType: TextInputType.emailAddress,
+            obscureText: false,
+            showClicked: () {},
           ),
           const SizedBox(height: 16),
           CustomTextField(
@@ -172,10 +279,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           const SizedBox(height: 27),
           CustomActionButton(
-            onTap: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const MainScreen()));
-            },
+            onTap: () => loginWithEmailAndPassword(),
             text: '로그인 하기',
           ),
           const SizedBox(height: 27),
@@ -226,13 +330,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(width: 4),
-              Text(
-                '비밀번호찾기',
-                style: TextStyle(
-                  fontSize: 12,
-                  height: 14 / 12,
-                  color: kPrimaryColor,
-                  fontWeight: FontWeight.bold,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FindPasswordScreen()),
+                  );
+                },
+                child: Text(
+                  '비밀번호찾기',
+                  style: TextStyle(
+                    fontSize: 12,
+                    height: 14 / 12,
+                    color: kPrimaryColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pause/screens/goalexecution/goal_execution_screen.dart';
 
 import '../../constants/constants_color.dart';
 
@@ -20,7 +21,7 @@ class _MainScreenState extends State<MainScreen> {
       case 1:
         return const Center(child: Text('page2'));
       case 2:
-        return const Center(child: Text('page3'));
+        return const Center(child: GoalExcutionScreen());
       case 3:
         return const Center(child: Text('page4'));
       default:

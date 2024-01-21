@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pause/constants/constants_color.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
   final Function textChanged;
-  final Function? showClicked;
   final int? maxLength;
   final TextInputType? inputType;
   final bool obscureText;
@@ -18,8 +17,15 @@ class CustomTextField extends StatelessWidget {
     this.maxLength,
     this.inputType,
     this.obscureText = false,
-    this.showClicked,
+    required void Function() showClicked,
   }) : super(key: key);
+
+  @override
+  _CustomTextFieldState createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  bool _showPassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -36,31 +42,32 @@ class CustomTextField extends StatelessWidget {
         ),
       ),
       child: TextField(
-        controller: controller,
-        keyboardType: inputType,
-        maxLength: maxLength,
-        obscureText: obscureText,
+        controller: widget.controller,
+        keyboardType: widget.inputType,
+        maxLength: widget.maxLength,
+        obscureText: widget.obscureText && !_showPassword,
         decoration: InputDecoration(
           border: InputBorder.none,
           enabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,
           isDense: true,
           counterText: '',
-          hintText: hintText,
+          hintText: widget.hintText,
           hintStyle: TextStyle(
             fontSize: 16,
             color: kTextFieldHintColor,
             height: 20 / 16,
           ),
-          suffix: obscureText
+          suffix: widget.obscureText
               ? GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () {
-                    if (showClicked == null) return;
-                    showClicked!();
+                    setState(() {
+                      _showPassword = !_showPassword;
+                    });
                   },
                   child: Text(
-                    'Show',
+                    _showPassword ? 'Hide' : 'Show',
                     style: TextStyle(
                       color: kPrimaryColor,
                       fontSize: 16,
@@ -70,7 +77,7 @@ class CustomTextField extends StatelessWidget {
                 )
               : null,
         ),
-        onChanged: (text) => textChanged(text),
+        onChanged: (text) => widget.textChanged(text),
         style: TextStyle(
           fontSize: 16,
           color: kBlack300,
