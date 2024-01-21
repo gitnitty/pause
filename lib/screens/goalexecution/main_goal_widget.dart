@@ -84,6 +84,7 @@ class _MainGoalWidgetState extends State<MainGoalWidget> {
 
     return Container(
       width: double.infinity,
+
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

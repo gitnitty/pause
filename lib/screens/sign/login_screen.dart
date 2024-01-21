@@ -7,6 +7,7 @@ import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:pause/constants/constants_color.dart';
+import 'package:pause/screens/home/home_screen.dart';
 import 'package:pause/screens/main/main_screen.dart';
 import 'package:pause/screens/sign/find_password_screen.dart';
 import 'package:pause/screens/sign/signup_screen.dart';
@@ -279,7 +280,13 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           const SizedBox(height: 27),
           CustomActionButton(
-            onTap: () => loginWithEmailAndPassword(),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomeScreen(),
+              ),
+            ),
+            // onTap: () => loginWithEmailAndPassword(),
             text: '로그인 하기',
           ),
           const SizedBox(height: 27),

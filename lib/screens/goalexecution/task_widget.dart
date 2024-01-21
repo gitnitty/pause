@@ -50,7 +50,7 @@ class _TodoAppState extends State<TodoApp> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text('Daily Goals'),
+        title: const Text('Daily Goals'),
       ),
       body: Column(
         children: [
@@ -84,7 +84,7 @@ class _TodoAppState extends State<TodoApp> {
         onPressed: () {
           _addEmptyTask();
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -162,7 +162,7 @@ class _TodoAppState extends State<TodoApp> {
                     width: 58,
                     height: 3,
                     decoration: ShapeDecoration(
-                      color: Color(0xFFB8B8B8),
+                      color: const Color(0xFFB8B8B8),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(11),
                       ),
@@ -175,44 +175,55 @@ class _TodoAppState extends State<TodoApp> {
                 ],
               ),
               Container(
-                margin: EdgeInsets.only(top: 50.0),
+                margin: const EdgeInsets.only(top: 50.0),
                 child: Align(
                   alignment: Alignment.topCenter,
-                  child: tasks[index].isEditing
-                      ? TextField(
-                          controller: textEditingController,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w600,
-                            height: 0.07,
-                          ),
-                          textAlign: TextAlign.center,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                          ),
-                        )
-                      : Text(
-                          tasks[index].text,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w600,
-                            height: 0.07,
-                          ),
-                        ),
+                  child: Text(
+                    tasks[index].name??'',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 15,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w600,
+                      height: 0.07,
+                    ),
+                  ),
+                  // child: tasks[index]
+                  //     ? TextField(
+                  //   controller: textEditingController,
+                  //   style: TextStyle(
+                  //     color: Colors.black,
+                  //     fontSize: 15,
+                  //     fontFamily: 'Inter',
+                  //     fontWeight: FontWeight.w600,
+                  //     height: 0.07,
+                  //   ),
+                  //   textAlign: TextAlign.center,
+                  //   decoration: InputDecoration(
+                  //     border: InputBorder.none,
+                  //   ),
+                  // )
+                  //     : Text(
+                  //   tasks[index].text,
+                  //   textAlign: TextAlign.center,
+                  //   style: TextStyle(
+                  //     color: Colors.black,
+                  //     fontSize: 15,
+                  //     fontFamily: 'Inter',
+                  //     fontWeight: FontWeight.w600,
+                  //     height: 0.07,
+                  //   ),
+                  // ),
                 ),
               ),
               Align(
                 alignment: Alignment.topCenter,
                 child: Container(
-                  margin: EdgeInsets.only(top: 80),
+                  margin: const EdgeInsets.only(top: 80),
                   height: 0.2,
                   width: 330,
-                  color: Color(0XFF999999),
+                  color: const Color(0XFF999999),
                 ),
               ),
               Row(
@@ -225,20 +236,20 @@ class _TodoAppState extends State<TodoApp> {
                     child: Container(
                       width: 158.54,
                       height: 41.28,
-                      margin: EdgeInsets.only(top: 89.59),
+                      margin: const EdgeInsets.only(top: 89.59),
                       child: Stack(
                         children: [
                           Container(
                             width: 158.54,
                             height: 41.28,
                             decoration: ShapeDecoration(
-                              color: Color(0xFFEAEAEA),
+                              color: const Color(0xFFEAEAEA),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5),
                               ),
                             ),
                           ),
-                          Align(
+                          const Align(
                             alignment: Alignment.center,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -266,7 +277,7 @@ class _TodoAppState extends State<TodoApp> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   GestureDetector(
@@ -276,20 +287,20 @@ class _TodoAppState extends State<TodoApp> {
                     child: Container(
                       width: 158.54,
                       height: 41.28,
-                      margin: EdgeInsets.only(top: 89.59),
+                      margin: const EdgeInsets.only(top: 89.59),
                       child: Stack(
                         children: [
                           Container(
                             width: 158.54,
                             height: 41.28,
                             decoration: ShapeDecoration(
-                              color: Color(0xFFEAEAEA),
+                              color: const Color(0xFFEAEAEA),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5),
                               ),
                             ),
                           ),
-                          Align(
+                          const Align(
                             alignment: Alignment.center,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -322,8 +333,8 @@ class _TodoAppState extends State<TodoApp> {
               Container(
                 width: 83.50,
                 height: 20.64,
-                margin: EdgeInsets.only(left: 50, top: 150.43),
-                child: Stack(
+                margin: const EdgeInsets.only(left: 50, top: 150.43),
+                child: const Stack(
                   children: [
                     SizedBox(
                       width: 58.13,
@@ -345,7 +356,7 @@ class _TodoAppState extends State<TodoApp> {
               Align(
                 alignment: Alignment.topCenter,
                 child: Container(
-                  margin: EdgeInsets.only(top: 185.0),
+                  margin: const EdgeInsets.only(top: 185.0),
                   child: CustomDropdownButton(),
                 ),
               )
@@ -379,8 +390,8 @@ class TaskWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-      padding: EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -390,9 +401,9 @@ class TaskWidget extends StatelessWidget {
           Container(
             width: 3,
             height: 24,
-            decoration: BoxDecoration(color: Colors.green),
+            decoration: const BoxDecoration(color: Colors.green),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           GestureDetector(
             onTap: () {
               // Existing code for handling task completion
@@ -405,12 +416,12 @@ class TaskWidget extends StatelessWidget {
                 color: taskInfo.isCompleted ? Colors.green : Colors.white,
                 border: Border.all(
                   width: 1,
-                  color: Color(0xFF989898),
+                  color: const Color(0xFF989898),
                 ),
                 borderRadius: BorderRadius.circular(4),
               ),
               child: taskInfo.isCompleted
-                  ? Icon(
+                  ? const Icon(
                       Icons.check,
                       size: 15,
                       color: Colors.white,
@@ -418,7 +429,7 @@ class TaskWidget extends StatelessWidget {
                   : null,
             ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Expanded(
             child: taskInfo.isEditing
                 ? Container(
@@ -433,8 +444,8 @@ class TaskWidget extends StatelessWidget {
                       },
                       autofocus: true,
                       maxLines: 1,
-                      style: TextStyle(fontSize: 14),
-                      decoration: InputDecoration(
+                      style: const TextStyle(fontSize: 14),
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                       ),
                     ),
@@ -453,7 +464,7 @@ class TaskWidget extends StatelessWidget {
                     ),
                   ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Container(
             width: 20,
             height: 20,
@@ -464,7 +475,7 @@ class TaskWidget extends StatelessWidget {
             child: taskInfo.isEditing
                 ? GestureDetector(
                     onTap: saveTaskCallback,
-                    child: Icon(
+                    child: const Icon(
                       Icons.check,
                       size: 15,
                       color: Colors.black,
@@ -472,7 +483,7 @@ class TaskWidget extends StatelessWidget {
                   )
                 : GestureDetector(
                     onTap: onIconPressed,
-                    child: Icon(
+                    child: const Icon(
                       Icons.more_horiz,
                       size: 15,
                       color: Colors.grey,
@@ -499,13 +510,13 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
     return Container(
       width: 327.66,
       decoration: BoxDecoration(
-        border: Border.all(color: Color(0xFFBDBDBD)),
+        border: Border.all(color: const Color(0xFFBDBDBD)),
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
           value: selectedValue,
-          icon: Icon(Icons.keyboard_arrow_down, color: Color(0xFFBDBDBD)),
+          icon: const Icon(Icons.keyboard_arrow_down, color: Color(0xFFBDBDBD)),
           onChanged: (String? newValue) {
             setState(() {
               selectedValue = newValue;
@@ -518,13 +529,13 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(left: 8.0),
+                      padding: const EdgeInsets.only(left: 8.0),
                       child: Text(
                         value,
                         style: TextStyle(
                           color: selectedValue == value
                               ? Colors.black
-                              : Color(0xFFBDBDBD),
+                              : const Color(0xFFBDBDBD),
                           fontSize: 11,
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.w500,

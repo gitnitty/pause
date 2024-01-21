@@ -59,29 +59,25 @@ class _GoalExcutionScreenState extends State<GoalExcutionScreen> {
               SizedBox(
                 height: 10,
               ),
-              Stack(
+              Container(
                 alignment: Alignment.center,
-                children: [
-                  Container(
-                    width: 341,
-                    height: 117,
-                    padding: EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Color(0XFFF2F2FA), width: 2.5),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
+                width: 341,
+                height: 117,
+                padding: EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0XFFF2F2FA), width: 2.5),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Text(
+                  '“명예로운 삶을 통해\n행복하기”',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFF404040),
+                    fontSize: 20,
+                    fontFamily: 'MaruBuri',
+                    height: 1.5,
                   ),
-                  Text(
-                    '“명예로운 삶을 통해\n행복하기”',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color(0xFF404040),
-                      fontSize: 20,
-                      fontFamily: 'MaruBuri',
-                      height: 1.5,
-                    ),
-                  ),
-                ],
+                ),
               ),
               SizedBox(
                 height: 38,
@@ -134,100 +130,94 @@ class _ToggleButtonWidgetState extends State<ToggleButtonWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      Stack(
-        children: [
-          Container(
-            width: 321,
-            height: 55,
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(color: Color(0xFFD9D9D9)),
-              ),
-            ),
+      Container(
+        width: 321,
+        height: 55,
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(color: Color(0xFFD9D9D9)),
           ),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 50.5,
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isWeeklySelected = true;
-                  });
-                },
-                child: Container(
-                  width: 58,
-                  height: 55,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        width: 2, // 원하는 아래 줄의 두께
-                        color: isWeeklySelected
-                            ? Color(0xFFFFA078)
-                            : Colors.transparent,
-                      ),
-                    ),
-                  ),
-                  child: Text(
-                    '주간',
-                    style: TextStyle(
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  isWeeklySelected = true;
+                });
+              },
+              child: Container(
+                width: 58,
+                height: 55,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      width: 2, // 원하는 아래 줄의 두께
                       color: isWeeklySelected
                           ? Color(0xFFFFA078)
-                          : Color(0xFFCCCCCC),
-                      fontSize: 16,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w600,
-                      height: 0.06,
-                      letterSpacing: -0.41,
+                          : Colors.transparent,
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 104),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isWeeklySelected = false;
-                  });
-                },
-                child: Container(
-                  width: 58,
-                  height: 55,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        width: 2, // 원하는 아래 줄의 두께
-                        color: isWeeklySelected
-                            ? Colors.transparent
-                            : Color(0xFFFFA078),
-                      ),
-                    ),
+                child: Text(
+                  '주간',
+                  style: TextStyle(
+                    color: isWeeklySelected
+                        ? Color(0xFFFFA078)
+                        : Color(0xFFCCCCCC),
+                    fontSize: 16,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w600,
+                    height: 0.06,
+                    letterSpacing: -0.41,
                   ),
-                  child: Text(
-                    '월간',
-                    style: TextStyle(
+                ),
+              ),
+            ),
+            const SizedBox(width: 104),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  isWeeklySelected = false;
+                });
+              },
+              child: Container(
+                width: 58,
+                height: 55,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      width: 2, // 원하는 아래 줄의 두께
                       color: isWeeklySelected
-                          ? Color(0xFFCCCCCC)
+                          ? Colors.transparent
                           : Color(0xFFFFA078),
-                      fontSize: 16,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w600,
-                      height: 0.06,
-                      letterSpacing: -0.41,
                     ),
                   ),
                 ),
+                child: Text(
+                  '월간',
+                  style: TextStyle(
+                    color: isWeeklySelected
+                        ? Color(0xFFCCCCCC)
+                        : Color(0xFFFFA078),
+                    fontSize: 16,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w600,
+                    height: 0.06,
+                    letterSpacing: -0.41,
+                  ),
+                ),
               ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
+
       SizedBox(
         height: 24,
       ),
