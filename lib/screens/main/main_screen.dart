@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pause/screens/goalexecution/goal_execution_screen.dart';
-
+import 'package:pause/screens/home/home_screen.dart';
 import '../../constants/constants_color.dart';
 
 class MainScreen extends StatefulWidget {
@@ -17,11 +16,11 @@ class _MainScreenState extends State<MainScreen> {
   Widget getScreen() {
     switch (_currentIndex) {
       case 0:
-        return const Center(child: Text('page1'));
+        return const HomeScreen();
       case 1:
         return const Center(child: Text('page2'));
       case 2:
-        return const Center(child: GoalExcutionScreen());
+        return const Center(child: Text('page3'));
       case 3:
         return const Center(child: Text('page4'));
       default:
@@ -32,6 +31,42 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        foregroundColor: kPrimaryColor,
+        backgroundColor: kWhiteColor,
+        surfaceTintColor: kWhiteColor,
+        automaticallyImplyLeading: false,
+        centerTitle: false,
+        titleSpacing: 20,
+        leading: SizedBox(
+          width: 22,
+          height: 22,
+          child: SvgPicture.asset(
+            'assets/icon/statistics.svg',
+            fit: BoxFit.scaleDown,
+          ),
+        ),
+        title: Container(
+          alignment: Alignment.center,
+          height: 50,
+          child: Image.asset(
+            'assets/logo/pause_logo.png',
+            fit: BoxFit.fitHeight,
+          ),
+        ),
+        actions: [
+          Container(
+            alignment: Alignment.center,
+            width: 24,
+            height: 25,
+            child: Image.asset(
+              'assets/icon/my_page.png',
+              fit: BoxFit.scaleDown,
+            ),
+          ),
+          const SizedBox(width: 20),
+        ],
+      ),
       backgroundColor: kWhiteColor,
       body: getScreen(),
       bottomNavigationBar: Container(

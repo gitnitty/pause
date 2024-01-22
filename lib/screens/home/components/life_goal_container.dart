@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pause/constants/constants_color.dart';
 
-class LifeDestinationContainer extends StatelessWidget {
-  const LifeDestinationContainer({Key? key}) : super(key: key);
+class LifeGoalContainer extends StatelessWidget {
+  const LifeGoalContainer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

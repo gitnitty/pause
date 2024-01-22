@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pause/constants/constants_color.dart';
 import 'package:pause/constants/constants_value.dart';
-import '../goalexecution/maingoal.dart';
-import '../goalexecution/sub_goal.dart';
-import '../goalexecution/task.dart';
+import 'package:pause/screens/home/components/weekly_main_goal_container.dart';
+import 'package:pause/services/main_goal_service.dart';
+import 'package:pause/services/sub_goal_service.dart';
+import 'package:pause/utils/color_utils.dart';
+import '../../models/main_goal/main_goal.dart';
+import '../../models/sub_goal/sub_goal.dart';
+import '../../models/task/task.dart';
 
 class MainGoalWeeklyPage extends StatefulWidget {
   final List<MainGoal> mainGoalList;
@@ -138,136 +142,26 @@ class _MainGoalWeeklyPageState extends State<MainGoalWeeklyPage> {
             color: const Color(0xFFD9D9D9),
           ),
           const SizedBox(height: 20),
-          ...widget.mainGoalList
-              .map((MainGoal mainGoal) => kMainGoalContainer(mainGoal))
-              .toList(),
+          FutureBuilder(
+              future: MainGoalService.getMainGoalList(1),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  List<MainGoal>? mainGoalList = snapshot.data;
+                  if (mainGoalList == null || mainGoalList.isEmpty) {
+                    return Container();
+                  }
+                  return ListView(
+                    physics: const ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    children: mainGoalList
+                        .map(
+                            (MainGoal mainGoal) => WeeklyMainGoalContainer(mainGoal: mainGoal))
+                        .toList(),
+                  );
+                }
+                return Container();
+              }),
         ]);
   }
 
-  Widget kMainGoalContainer(MainGoal mainGoal) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 26),
-          child: Row(
-            children: [
-              Text(
-                '# ${mainGoal.memo}',
-                style: TextStyle(
-                  fontSize: 22,
-                  color: mainGoal.selectColor,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(width: 14),
-              Icon(
-                Icons.expand_more,
-                color: mainGoal.selectColor,
-              ),
-              //Icon(Icons.expand_less),
-            ],
-          ),
-        ),
-        const SizedBox(height: 20),
-        ...widget.subGoalList
-            .where((element) => element.mainGoalId == mainGoal.id)
-            .map((SubGoal subGoal) => kSubGoalContainer(mainGoal, subGoal))
-            .toList(),
-        const SizedBox(height: 12),
-      ],
-    );
-  }
-
-  Widget kSubGoalContainer(MainGoal mainGoal, SubGoal subGoal) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-          padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 18),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: mainGoal.backgroundColor,
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                "D-123 ${subGoal.name}",
-                style: TextStyle(
-                  color: mainGoal.selectColor,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              Icon(Icons.expand_less, color: mainGoal.selectColor),
-            ],
-          ),
-        ),
-        ...widget.taskList
-            .where((element) => element.mainGoalId == mainGoal.id)
-            .where((element) => element.subGoalId == subGoal.id)
-            .map((Task task) => kTaskContainer(mainGoal, task))
-            .toList(),
-      ],
-    );
-  }
-
-  Widget kTaskContainer(MainGoal mainGoal, Task task) {
-    return Container(
-      margin: const EdgeInsets.only(left: 22, right: 30, bottom: 8),
-      padding: const EdgeInsets.only(
-        left: 10,
-        right: 18,
-      ),
-      width: double.infinity,
-      height: 53,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(11),
-        border: Border.all(color: const Color(0xFF999999).withOpacity(0.6)),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 6,
-            height: 38,
-            decoration: BoxDecoration(
-              color: mainGoal.selectColor,
-              borderRadius: BorderRadius.circular(4),
-            ),
-          ),
-          const SizedBox(width: 22),
-          Expanded(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                task.name ?? "",
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const Text(
-                '설정',
-                style: TextStyle(
-                  color: Color(0xFF425884),
-                  fontSize: 10,
-                ),
-              ),
-            ],
-          )),
-          Checkbox(
-            value: int.parse(task.id ?? "1").isEven,
-            onChanged: (value) {},
-            activeColor: mainGoal.selectColor,
-            side: const BorderSide(
-              width: 0.5,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }

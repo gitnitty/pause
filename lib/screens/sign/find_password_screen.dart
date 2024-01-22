@@ -44,9 +44,6 @@ class _FindPasswordScreenState extends State<FindPasswordScreen> {
   }
 
   void _sendEmailWithCode(String email, String code) {
-    // 이메일 전송 등의 로직 수행
-    // 이 부분에 원하는 동작을 추가하세요.
-    // 여기에서는 성공 메시지를 띄웁니다.
     showDialog(
       context: context,
       builder: (BuildContext context) {

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pause/constants/constants_color.dart';
 
-class MainGoalTabBar extends StatelessWidget {
+class HomeGoalTabBar extends StatelessWidget {
   final int currentIndex;
   final Function onTap;
 
-  const MainGoalTabBar(
+  const HomeGoalTabBar(
       {Key? key, required this.currentIndex, required this.onTap})
       : super(key: key);
 
@@ -20,14 +20,14 @@ class MainGoalTabBar extends StatelessWidget {
       )),
       child: Row(
         children: [
-          kMainGoalTabBarItem(0, "주간"),
-          kMainGoalTabBarItem(1, "월간"),
+          kHomeGoalTabBarItem(0, "주간"),
+          kHomeGoalTabBarItem(1, "월간"),
         ],
       ),
     );
   }
 
-  Widget kMainGoalTabBarItem(int index, String title) {
+  Widget kHomeGoalTabBarItem(int index, String title) {
     return Expanded(
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,

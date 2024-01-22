@@ -283,7 +283,7 @@ class _LoginScreenState extends State<LoginScreen> {
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const HomeScreen(),
+                builder: (context) => const MainScreen(),
               ),
             ),
             // onTap: () => loginWithEmailAndPassword(),
