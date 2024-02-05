@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pause/models/main_goal/main_goal.dart';
 import 'package:pause/models/sub_goal/sub_goal.dart';
 import 'package:pause/screens/home/components/weekly_sub_goal_container.dart';
+import 'package:pause/service/sub_goal_service.dart';
 
-import '../../../services/sub_goal_service.dart';
 import '../../../utils/color_utils.dart';
 
 class WeeklyMainGoalContainer extends StatefulWidget {
@@ -50,27 +50,27 @@ class _WeeklyMainGoalContainerState extends State<WeeklyMainGoalContainer> {
           ),
         ),
         const SizedBox(height: 20),
-        if(_showMore)
-        FutureBuilder(
-            future: SubGoalService.getSubGoalList(1, widget.mainGoal.id),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                List<SubGoal>? subGoalList = snapshot.data;
-                if (subGoalList == null || subGoalList.isEmpty) {
-                  return Container();
+        if (_showMore)
+          FutureBuilder(
+              future: SubGoalService.getSubGoalList(1, widget.mainGoal.id),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  List<SubGoal>? subGoalList = snapshot.data;
+                  if (subGoalList == null || subGoalList.isEmpty) {
+                    return Container();
+                  }
+                  return ListView(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    physics: const ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    children: subGoalList
+                        .map((goal) => WeeklySubGoalContainer(
+                            mainGoal: widget.mainGoal, subGoal: goal))
+                        .toList(),
+                  );
                 }
-                return ListView(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  physics: const ClampingScrollPhysics(),
-                  shrinkWrap: true,
-                  children: subGoalList
-                      .map((goal) => WeeklySubGoalContainer(
-                          mainGoal: widget.mainGoal, subGoal: goal))
-                      .toList(),
-                );
-              }
-              return Container();
-            }),
+                return Container();
+              }),
       ],
     );
   }

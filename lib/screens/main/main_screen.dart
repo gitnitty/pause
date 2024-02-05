@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pause/screens/home/home_screen.dart';
+
 import '../../constants/constants_color.dart';
 
 class MainScreen extends StatefulWidget {
@@ -16,11 +17,11 @@ class _MainScreenState extends State<MainScreen> {
   Widget getScreen() {
     switch (_currentIndex) {
       case 0:
-        return const HomeScreen();
+        return const Center(child: Text('page1'));
       case 1:
         return const Center(child: Text('page2'));
       case 2:
-        return const Center(child: Text('page3'));
+        return const HomeScreen();
       case 3:
         return const Center(child: Text('page4'));
       default:

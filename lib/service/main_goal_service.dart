@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pause/models/main_goal/main_goal.dart';
-import 'package:pause/services/firebase_service.dart';
+import 'package:pause/service/firebase_service.dart';
 
 import '../constants/constants_color.dart';
 

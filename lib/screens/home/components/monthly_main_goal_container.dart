@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:pause/models/main_goal/main_goal.dart';
 import 'package:pause/models/sub_goal/sub_goal.dart';
-import 'package:pause/models/task/task.dart';
-import 'package:pause/screens/home/components/weekly_task_container.dart';
-import 'package:pause/service/task_service.dart';
+import 'package:pause/screens/home/components/monthly_sub_goal_container.dart';
+import 'package:pause/service/sub_goal_service.dart';
 
 import '../../../utils/color_utils.dart';
 
-class WeeklySubGoalContainer extends StatefulWidget {
+class MonthlyMainGoalContainer extends StatefulWidget {
   final MainGoal mainGoal;
-  final SubGoal subGoal;
 
-  const WeeklySubGoalContainer(
-      {Key? key, required this.mainGoal, required this.subGoal})
+  const MonthlyMainGoalContainer({Key? key, required this.mainGoal})
       : super(key: key);
 
   @override
-  State<WeeklySubGoalContainer> createState() => _WeeklySubGoalContainerState();
+  State<MonthlyMainGoalContainer> createState() =>
+      _MonthlyMainGoalContainerState();
 }
 
-class _WeeklySubGoalContainerState extends State<WeeklySubGoalContainer> {
+class _MonthlyMainGoalContainerState extends State<MonthlyMainGoalContainer> {
   bool _showMore = true;
 
   @override
@@ -27,23 +25,19 @@ class _WeeklySubGoalContainerState extends State<WeeklySubGoalContainer> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-          padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 18),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: getColor(widget.mainGoal.backgroundColor),
-          ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 26),
           child: Row(
-            mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "D-123 ${widget.subGoal.goal}",
+                '# ${widget.mainGoal.goal}',
                 style: TextStyle(
+                  fontSize: 22,
                   color: getColor(widget.mainGoal.selectColor),
                   fontWeight: FontWeight.w600,
                 ),
               ),
+              const SizedBox(width: 14),
               GestureDetector(
                 onTap: () => setState(() => _showMore = !_showMore),
                 behavior: HitTestBehavior.opaque,
@@ -55,20 +49,23 @@ class _WeeklySubGoalContainerState extends State<WeeklySubGoalContainer> {
             ],
           ),
         ),
+        const SizedBox(height: 20),
         if (_showMore)
           FutureBuilder(
-              future: TaskService.getTaskList(
-                  1, widget.mainGoal.id, widget.subGoal.id),
+              future: SubGoalService.getSubGoalList(1, widget.mainGoal.id),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  List<Task>? taskList = snapshot.data;
-                  if (taskList == null || taskList.isEmpty) return Container();
+                  List<SubGoal>? subGoalList = snapshot.data;
+                  if (subGoalList == null || subGoalList.isEmpty) {
+                    return Container();
+                  }
                   return ListView(
+                    padding: const EdgeInsets.only(bottom: 12),
                     physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,
-                    children: taskList
-                        .map((task) => WeeklyTaskContainer(
-                            mainGoal: widget.mainGoal, task: task))
+                    children: subGoalList
+                        .map((goal) => MonthlySubGoalContainer(
+                            mainGoal: widget.mainGoal, subGoal: goal))
                         .toList(),
                   );
                 }

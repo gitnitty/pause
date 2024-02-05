@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pause/constants/constants_color.dart';
 import 'package:pause/constants/constants_value.dart';
 import 'package:pause/screens/home/components/weekly_main_goal_container.dart';
-import 'package:pause/services/main_goal_service.dart';
-import 'package:pause/services/sub_goal_service.dart';
-import 'package:pause/utils/color_utils.dart';
+import 'package:pause/service/main_goal_service.dart';
+
 import '../../models/main_goal/main_goal.dart';
 import '../../models/sub_goal/sub_goal.dart';
 import '../../models/task/task.dart';
@@ -54,7 +53,7 @@ class _MainGoalWeeklyPageState extends State<MainGoalWeeklyPage> {
             child: Text(
               '${_selectedDate.year}년 ${_selectedDate.month}월',
               style: TextStyle(
-                fontSize: 22,
+                fontSize: 18,
                 fontWeight: FontWeight.w600,
                 color: kBlackColor,
               ),
@@ -154,8 +153,8 @@ class _MainGoalWeeklyPageState extends State<MainGoalWeeklyPage> {
                     physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,
                     children: mainGoalList
-                        .map(
-                            (MainGoal mainGoal) => WeeklyMainGoalContainer(mainGoal: mainGoal))
+                        .map((MainGoal mainGoal) =>
+                            WeeklyMainGoalContainer(mainGoal: mainGoal))
                         .toList(),
                   );
                 }
@@ -163,5 +162,4 @@ class _MainGoalWeeklyPageState extends State<MainGoalWeeklyPage> {
               }),
         ]);
   }
-
 }

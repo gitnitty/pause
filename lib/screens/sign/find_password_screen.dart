@@ -232,8 +232,8 @@ class _FindPasswordScreenState extends State<FindPasswordScreen> {
             controller: _codeController,
             hintText: '코드 입력',
             obscureText: !_showCode,
-            textChanged: () => setState(() => _showCode = !_showCode),
-            showClicked: () {},
+            textChanged: (text) => setState(() {}),
+            showClicked: () => setState(() => _showCode = !_showCode),
           ),
           if (_errorMessage.isNotEmpty)
             Text(

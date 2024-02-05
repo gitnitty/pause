@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:pause/constants/constants_color.dart';
+import 'package:pause/models/task_prgress/task_progress.dart';
 import 'package:pause/screens/home/components/life_goal_container.dart';
+import 'package:pause/screens/home/main_goal_monthly_page.dart';
 import 'package:pause/screens/home/main_goal_weekly_page.dart';
+
 import '../../models/main_goal/main_goal.dart';
 import '../../models/sub_goal/sub_goal.dart';
 import '../../models/task/task.dart';
 import 'components/home_goal_tab_bar.dart';
-import 'main_goal_monthly_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -107,7 +109,45 @@ class _HomeScreenState extends State<HomeScreen> {
         taskList: _taskList,
       );
     }
-    return const MainGoalMonthlyPage();
+    return MainGoalMonthlyPage(
+      taskList: [
+        Task(
+            id: 1,
+            uid: 1,
+            mainGoalId: 1,
+            subGoalId: 1,
+            goal: "법률 기사 3개 읽기",
+            repeatType: '',
+            repeatValue: ''),
+        Task(
+            id: 2,
+            uid: 1,
+            mainGoalId: 1,
+            subGoalId: 1,
+            goal: "변호사 면허증 1시간 공부하기",
+            repeatType: '',
+            repeatValue: ''),
+        Task(
+            id: 3,
+            uid: 1,
+            mainGoalId: 1,
+            subGoalId: 1,
+            goal: "법전 읽기",
+            repeatType: '',
+            repeatValue: ''),
+      ],
+      taskProgressList: [
+        TaskProgress(
+          uid: 1,
+          taskId: 1,
+          timestamp: DateTime.parse("2024-02-04T10:30:00"),
+        ),
+        TaskProgress(
+            uid: 1,
+            taskId: 3,
+            timestamp: DateTime.parse("2024-02-04T10:10:00")),
+      ],
+    );
   }
 
   @override
